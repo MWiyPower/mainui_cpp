@@ -72,10 +72,6 @@ private:
         CMenuPicButton        previews;
         CMenuPicButton        quit;
 
-        // buttons on top right. Maybe should be drawn if fullscreen == 1?
-        CMenuBitmap        minimizeBtn;
-        CMenuBitmap        quitButton;
-
         // quit dialog
         CMenuYesNoMessageBox dialog;
 
@@ -251,16 +247,6 @@ void CMenuMain::_Init( void )
         quit.iFlags |= QMF_NOTIFY;
         quit.onReleased = MenuCb( &CMenuMain::QuitDialog );
 
-        quitButton.SetPicture( ART_CLOSEBTN_N, ART_CLOSEBTN_F, ART_CLOSEBTN_D );
-        quitButton.iFlags = QMF_MOUSEONLY;
-        quitButton.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
-        quitButton.onReleased = MenuCb( &CMenuMain::QuitDialog );
-
-        minimizeBtn.SetPicture( ART_MINIMIZE_N, ART_MINIMIZE_F, ART_MINIMIZE_D );
-        minimizeBtn.iFlags = QMF_MOUSEONLY;
-        minimizeBtn.eFocusAnimation = QM_HIGHLIGHTIFFOCUS;
-        minimizeBtn.onReleased.SetCommand( FALSE, "minimize\n" );
-
         if ( gMenu.m_gameinfo.gamemode == GAME_MULTIPLAYER_ONLY || gMenu.m_gameinfo.startmap[0] == 0 )
                 newGame.SetGrayed( true );
 
@@ -311,8 +297,6 @@ void CMenuMain::_Init( void )
 
         AddItem( previews );
         AddItem( quit );
-        AddItem( minimizeBtn );
-        AddItem( quitButton );
 }
 
 /*
@@ -325,8 +309,6 @@ void CMenuMain::VidInit( bool connected )
         CMenuPicButton::ClearButtonStack();
 
         // statically positioned items
-        minimizeBtn.SetRect( uiStatic.width - 72, 13, 32, 32 );
-        quitButton.SetRect( uiStatic.width - 36, 13, 32, 32 );
         disconnect.SetCoord( 72, 180 );
         resumeGame.SetCoord( 72, 230 );
         newGame.SetCoord( 72, 280 );
